@@ -20,6 +20,9 @@ def register(request):
             user.phone_number = phone_number
             user.save()
             messages.success(request, 'Registration success !! ')
+            return redirect('login')
+        else:
+            messages.warning(request, 'Something bad happend, Try again!!')
             return redirect('register')
     else:
         form = RegisterForm()
@@ -37,9 +40,11 @@ def login(request):
         
         if user is not None:
             auth.login(request, user)
+            messages.success(request,'Succesfully Login')
             return redirect('home')
+
         else:
-            messages.error(request, 'Email or Password Invalid Try Again')
+            messages.warning(request, 'Email or Password Invalid Try Again')
             return redirect('login')
         
     form = LoginForm()
@@ -49,7 +54,12 @@ def login(request):
     return render(request, 'accounts/login.html', context)
 
 @login_required(login_url='login')
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
+
+@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You successfully logout !!')
-    return redirect('home')
+    return redirect('login')

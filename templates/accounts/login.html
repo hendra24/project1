@@ -1,14 +1,39 @@
-<h1>LOGINNN</h1>
+{% extends "includes/base.html" %}
 {% load static %}
 
 {% block content %}
-{% include "includes/alerts.html" %}
-<h1>LOGINNN PLS</h1>
-<form action="{% url "login" %}" method="post">
-    {% csrf_token %}
 
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-    
-</form>
+<div class="container-fluid p-3 bg-primary text-white text-center">
+    <h1>LOGIN PAGE</h1> 
+</div>
+
+<div class="container mx-auto card text-center form-signin" style="max-width: 380px; margin-top:100px;">
+  <article class="card-body">
+  {% include "includes/alerts.html" %}
+  <form action="{% url "login" %}" method="post">
+    {% csrf_token %}
+    <header class="mb-4 text-center"><h4 class="card-title">Sign in</h4></header>
+      <div class="form-floating">
+        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+        <br>
+      </div>
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <br>
+      <div class="text-center">
+        <button class="w-50 btn btn-md btn-primary" type="submit">Sign in</button>
+        <br>
+        <br>
+        <a href="{% url "register" %}">Dont have an account, Sign up ??</a>
+   
+        <p class="mt-5 mb-3 text-muted">© 2023</p> 
+       
+    </div>
+    </form>
+  </article>
+</div>
+
 {% endblock content %}
